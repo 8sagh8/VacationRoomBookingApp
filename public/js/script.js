@@ -72,7 +72,7 @@ const changePic = ()=>
 }
 
 
-setInterval(changePic, 2000);
+setInterval(changePic, 800);
 
 /*************** BUTTON TO HIDE VIDEO **************/
 
