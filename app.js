@@ -1,4 +1,9 @@
-// Importing 3rd Parties Modules / libraries
+/*
+Name: Sammar Abbas
+ID: 157-597-170
+Email: sabbas21@myseneca.ca
+link: https://webapp322.herokuapp.com/
+*/// Importing 3rd Parties Modules / libraries
 const express = require (`express`);
 const exphbs = require (`express-handlebars`);
 
