@@ -30,7 +30,7 @@ app.get(`/reg`, (req, res)=>{
 })
 
 // Port:3000 creation
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, ()=>{
     console.log(`Room Booking Server is listening PORT: ${PORT}`);
 })
