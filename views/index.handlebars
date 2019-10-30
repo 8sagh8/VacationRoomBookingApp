@@ -10,10 +10,21 @@
     <br>  
 
     <div id = "videoID">
-        <p id="pDiv">close X</p>
         <iframe width="560" height="315" src="https://www.youtube.com/embed/evqnIKVX8RM"
          frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope;
           picture-in-picture" allowfullscreen id = "runningVideo"></iframe>
+    </div>
+
+    <div id = "loginForm">
+        <form action="" method="POST" id="loginFormId">
+            <label>username</label>
+            <input type="text" name="usernameLogin" class="inputLogin">
+            <br><br>
+            <label>password</label>
+            <input type="password" name="passwordLogin" class="inputLogin">
+            <br><br>
+            <input type="submit" value="Log In" name="submitLogin" id="subLogin">
+        </form> 
     </div>
     <div id = "indexID">
         <form action="index.handlebars" method="POST" id="formID">

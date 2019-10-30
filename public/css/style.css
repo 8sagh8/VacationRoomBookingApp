@@ -7,7 +7,7 @@
     /********* HEAD CSS **********/
 header{
     display: grid;
-    grid-template-columns: 20px 1fr;
+    grid-template-columns: 20px 1fr 120px;
 
     height: 8vh;
     padding-top: 1rem;
@@ -40,6 +40,15 @@ header i {
     border-radius: 50px 50px;
 }
 
+#loginDiv{
+    color: white;
+}
+
+#loginSpan{
+    color: yellowgreen;
+    font-weight: bold;
+
+}
 
 
     /********* Footer CSS **********/
@@ -83,6 +92,33 @@ footer i {
         background-repeat: no-repeat;
         background-size: 100% 100%;
         height: 150vh;
+    }
+
+    #loginForm{
+        display: none;
+        margin-left: 25rem;
+        color: blanchedalmond;
+        font-weight: bold;
+        font-size: 22px;
+
+        width: 25rem;
+        height: 30vh;
+        background-color: rgb(62, 76, 88);
+
+        border: 1.8px solid #ff5a5f;
+        padding: 15px;
+        border-radius: 20px 20px;
+    }
+
+    .inputLogin{
+        width: 18rem;
+        height: 2.5rem;
+    }
+
+    #subLogin{
+        width: 5rem;
+        height: 2.5rem;
+        margin-left: 15rem;
     }
 
     #indexID{
