@@ -95,7 +95,7 @@ footer i {
     }
 
     #loginForm{
-        display: none;
+       /* display: none;*/
         margin-left: 25rem;
         color: blanchedalmond;
         font-weight: bold;
@@ -118,7 +118,7 @@ footer i {
     #subLogin{
         width: 5rem;
         height: 2.5rem;
-        margin-left: 15rem;
+        margin-left: 19rem;
     }
 
     #indexID{
@@ -185,6 +185,16 @@ footer i {
         color: black;
         font-size: 1rem;
         width: 4rem;
+    }
+
+    #spanEach{
+        color: red;
+        font-size: 18px;
+    }
+    #pVideoDiv{
+        background-color: white;
+        font-weight: bold;
+        width: 5rem;
     }
 
 

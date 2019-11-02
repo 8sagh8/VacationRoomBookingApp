@@ -76,15 +76,13 @@ setInterval(changePic, 800);
 
 /*************** BUTTON TO HIDE VIDEO **************/
 
-const divPara = document.querySelector(`#login`);
+const divPara = document.querySelector(`#pVideoDiv`);
 
 const functClose =()=>{
     const showVideo = document.querySelector(`#videoID`);
-    const showLogin = document.querySelector(`#loginForm`);
 
     if (showVideo.style.display != "none"){
       showVideo.style.display = "none";
-      showLogin.style.display = "block";
     } 
 
     else {}
