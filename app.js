@@ -39,7 +39,35 @@ app.get(`/reg`, (req, res)=>{
 
 //post Registration Page
 app.post(`/reg`, (req, res)=>{
-    res.send(`Form is submitted Successfully!`);
+    const errors = [];
+
+    if(req.body.email == "")
+        errors.push(`Please enter Email Address`);
+
+
+    if(req.body.firstName == "")
+        errors.push(`Please enter First Name`);
+
+    if(req.body.lastName == "")
+        errors.push(`Please enter Last Name`);
+
+    if(req.body.password == "" || req.body.password.length < 6 || req.body.password.length > 12)
+        errors.push(`Please enter password between 6 to 12 characters only`);
+    
+    if(req.body.selectMonth == "Month" || req.body.selectDay == "Day" || req.body.selectYear == "Year")
+        errors.push(`Incorrect Date input not allowed!`);
+
+    if(errors.length > 0){
+        res.render(`register`, {
+        register:errors
+        //errors: register
+        })
+    }
+
+    else {
+        res.send(`Form is submitted Successfully!`);
+        
+    }
 })
 
 //Login page
