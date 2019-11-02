@@ -53,6 +53,23 @@ app.post(`/reg`, (req, res)=>{
 
     if(req.body.password == "" || req.body.password.length < 6 || req.body.password.length > 12)
         errors.push(`Please enter password between 6 to 12 characters only`);
+
+    if(req.body.password != "" && req.body.password.length > 5 && req.body.password.length < 13){
+        let alpha = "";
+        let num = -1;
+        for (let i = 0; i < req.body.password.length; ++i){
+            if (req.body.password[i] == [a-z][A-Z])
+                alpha = req.body.password[i];
+        
+            else if (req.body.password[i] == [0-9])
+                num = req.body.password[i];
+
+            else {}
+        }
+        if(alpha == "" || num < 0)
+            errors.push(`Password must have letters and numbers only!`);
+    }
+
     
     if(req.body.selectMonth == "Month" || req.body.selectDay == "Day" || req.body.selectYear == "Year")
         errors.push(`Incorrect Date input not allowed!`);
