@@ -86,12 +86,6 @@ app.post(`/reg`, (req, res)=>{
 
     if(req.body.password == "" || req.body.password.length < 6 || req.body.password.length > 12)
         errors.push(`Please enter password between 6 to 12 characters only`);
-/*
-    if(req.body.password != "^(?=.*[a-z])" || req.body.passowrd != "^(?=.*[0-9])")
-        errors.push(`Password must contain atleast one LETTER and one Number`);*/
-
-    if(req.body.password != /^(?=.\d)(?=.[a-z])(?=.*[A-Z])$/)
-        errors.push(`Password must contain atleast one LETTER and one Number`);
     
     if(req.body.selectMonth == "Month" || req.body.selectDay == "Day" || req.body.selectYear == "Year")
         errors.push(`Incorrect Date input not allowed!`);
