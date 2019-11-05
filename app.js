@@ -10,14 +10,15 @@ const exphbs = require (`express-handlebars`);
 const bodyParser = require(`body-parser`);
 const mongoose = require(`mongoose`);
 
+
 // Assigning variables
 const app = express();
 
+//to get values from forms and should be above routes
+app.use(bodyParser.urlencoded({extended: false}));
+
 // load all static files inside folder public
 app.use(express.static(`public`));
-
-//to get values from forms
-app.use(bodyParser.urlencoded({extended: false}));
 
 // setting express-handlebars engine with express
 app.engine(`handlebars`, exphbs());
@@ -35,6 +36,22 @@ mongoose.connect(DBURL, {useNewUrlParser: true})
 .catch(err=>{
     console.log(`Something went wrong : ${err}`);
 })
+
+let Schema = mongoose.Schema;
+
+let taskSchema = new Schema({
+    email: String,
+    firstName: String,
+    lastName: String,
+    password: String,
+    selectMonth: String,
+    selectDay: Number,
+    selectYear: Number
+});
+
+//This creates a Model called Tasks. This model represents our Collection in our database
+let Tasks = mongoose.model('Tasks', taskSchema);
+
 
 
 //Assigning Ports to templates Files
@@ -69,7 +86,12 @@ app.post(`/reg`, (req, res)=>{
 
     if(req.body.password == "" || req.body.password.length < 6 || req.body.password.length > 12)
         errors.push(`Please enter password between 6 to 12 characters only`);
+/*
+    if(req.body.password != "^(?=.*[a-z])" || req.body.passowrd != "^(?=.*[0-9])")
+        errors.push(`Password must contain atleast one LETTER and one Number`);*/
 
+    if(req.body.password != /^(?=.\d)(?=.[a-z])(?=.*[A-Z])$/)
+        errors.push(`Password must contain atleast one LETTER and one Number`);
     
     if(req.body.selectMonth == "Month" || req.body.selectDay == "Day" || req.body.selectYear == "Year")
         errors.push(`Incorrect Date input not allowed!`);
@@ -82,21 +104,7 @@ app.post(`/reg`, (req, res)=>{
     }
 
     else {
-        const Schema = mongoose.Schema;
-
-        const taskSchema = new Schema({
-            email: String,
-            firstName: String,
-            lastName: String,
-            password: String,
-            selectMonth: String,
-            selectDay: Number,
-            selectYear: Number
-        });
-
-        //This creates a Model called Tasks. This model represents our Collection in our database
-        const Tasks = mongoose.model('Tasks', taskSchema);
-
+       
         const formData ={
             email:req.body.email,
             firstName:req.body.firstName,
@@ -106,7 +114,7 @@ app.post(`/reg`, (req, res)=>{
             selectDay:req.body.selectDay,
             selectYear:req.body.selectYear
         }
-
+        
         //To create a  Task document we have to call the Model constructor
         const ta = new Tasks(formData);
         ta.save()
@@ -117,6 +125,8 @@ app.post(`/reg`, (req, res)=>{
         .catch((err)=>{
             console.log(`Task was not inserted into the database because ${err}`)
         })
+
+
 
 
         // Send Email Message
@@ -134,7 +144,7 @@ app.post(`/reg`, (req, res)=>{
         const email = {
             to: `${req.body.email}`,
             from: 'mastersagh@hotmail.com',
-            subject: 'SAMMAR ABBAS has registered you, Please login to book ROOMS',
+            subject: `Registration is Successfully done! Room Booking is opened for you!`,
             text: `Dear ${req.body.firstName} ${req.body.lastName}, your email address: ${req.body.email} has been registered`,
             html: `Dear ${req.body.firstName} ${req.body.lastName}, your email address: ${req.body.email} has been registered`
         };
@@ -176,7 +186,7 @@ app.post(`/login`, (req, res)=>{
 
     else {
 
-        
+        // kholey
     }
 })
 
