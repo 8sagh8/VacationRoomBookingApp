@@ -4,6 +4,9 @@
     padding: 0;
 }
 
+#h3userDash{
+    margin-bottom: 80vh;
+}
     /********* HEAD CSS **********/
     header{
     display: grid;
