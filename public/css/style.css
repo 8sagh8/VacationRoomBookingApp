@@ -320,7 +320,10 @@ footer i {
 
 /**********max-width: 1250px**************/
 @media(max-width: 1250px){
-   
+    #navDiv{
+        padding-left: 6rem;
+        padding-top: 0rem;
+    }
     /**********INDEX PAGE***********/
     #baID{
         padding: 1rem 2rem;
@@ -383,6 +386,8 @@ footer i {
         margin-left: 15rem;
     }
 
+    
+
     /********************Registration  PAGE ***************/
     #registerDiv{
         margin-left: 15rem;
@@ -393,4 +398,62 @@ footer i {
         margin-left: 15rem;
     }
  
+}
+
+/**********max-width: 1000px**************/
+@media(max-width: 1000px){
+    #navDiv{
+        padding-left: 3rem;
+        padding-top: 0rem;
+    }
+
+    .pnavDiv{
+        font-size: 1.2rem;
+    }
+
+    .imgIMG{
+        width: 30rem;
+        height: auto;
+    }
+}
+
+/********************Registration  PAGE ***************/
+#registerDiv{
+    margin-left: 10rem;
+}
+
+/**********max-width: 1000px**************/
+@media(max-width: 800px){
+
+/********************Registration  PAGE ***************/
+#registerDiv{
+    margin-left: 2rem;
+}
+/**********max-width: 630px**************/
+@media(max-width: 630px){
+    #navDiv{
+        padding-left: 3rem;
+        padding-top: 0rem;
+    }
+
+    .pnavDiv{
+        font-size: 0.8rem;
+    }
+
+    .imgIMG{
+        width: 20rem;
+        height: auto;
+    }
+}
+
+/**********max-width: 500px**************/
+@media(max-width: 530px){
+    .pnavDiv{
+        font-size: 0.5rem;
+    }
+
+    .imgIMG{
+        width: 20rem;
+        height: auto;
+    }
 }

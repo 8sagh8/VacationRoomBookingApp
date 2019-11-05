@@ -186,7 +186,7 @@ app.post(`/login`, (req, res)=>{
 
     else {
 
-        // kholey
+        res.redirect("/login");
     }
 })
 
