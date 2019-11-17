@@ -10,6 +10,8 @@ const exphbs = require (`express-handlebars`);
 const bodyParser = require(`body-parser`);
 const mongoose = require(`mongoose`);
 
+//IMPORT ROUTERS
+const generalRoutes = require("./routes/General");
 
 // Assigning variables
 const app = express();
@@ -19,6 +21,9 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 // load all static files inside folder public
 app.use(express.static(`public`));
+
+//MAP EXPRESS TO OUR ROUTER OBJECTS
+app.use("/", generalRoutes);
 
 // setting express-handlebars engine with express
 app.engine(`handlebars`, exphbs());
@@ -55,11 +60,6 @@ let Tasks = mongoose.model('Tasks', taskSchema);
 
 
 //Assigning Ports to templates Files
-//Index/Home Page
-app.get(`/`, (req, res)=>{
-    res.render(`index`);
-})
-
 //Room listing Page
 app.get(`/room`, (req, res)=>{
     res.render(`room`);
