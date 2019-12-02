@@ -10,6 +10,10 @@ const exphbs = require (`express-handlebars`);
 const bodyParser = require(`body-parser`);
 const mongoose = require(`mongoose`);
 
+const bcrypt = require(`bcryptjs`);
+const salt = bcrypt.genSaltSync(10);
+const hash = bcrypt.hashSync("B4c0/\/", salt);
+
 //IMPORT ROUTERS
 const generalRoutes = require("./routes/General");
 
@@ -45,6 +49,7 @@ mongoose.connect(DBURL, {useNewUrlParser: true})
 let Schema = mongoose.Schema;
 
 let taskSchema = new Schema({
+    userName: String,
     email: String,
     firstName: String,
     lastName: String,
@@ -73,6 +78,8 @@ app.get(`/reg`, (req, res)=>{
 //post Registration Page
 app.post(`/reg`, (req, res)=>{
     const errors = [];
+    if(req.body.userName == "")
+        errors.push(`Please enter username`);
 
     if(req.body.email == "")
         errors.push(`Please enter Email Address`);
@@ -84,8 +91,8 @@ app.post(`/reg`, (req, res)=>{
     if(req.body.lastName == "")
         errors.push(`Please enter Last Name`);
 
-    if(req.body.password == "" || req.body.password.length < 6 || req.body.password.length > 12)
-        errors.push(`Please enter password between 6 to 12 characters only`);
+    if(req.body.password == "" || req.body.password.length < 6 || req.body.password.length > 12 || req.body.password !== req.body.passwordd)
+        errors.push(`Please enter password between 6 to 12 characters only & password must be matching`);
     
     if(req.body.selectMonth == "Month" || req.body.selectDay == "Day" || req.body.selectYear == "Year")
         errors.push(`Incorrect Date input not allowed!`);
@@ -100,6 +107,7 @@ app.post(`/reg`, (req, res)=>{
     else {
        
         const formData ={
+            userName:req.body.userName,
             email:req.body.email,
             firstName:req.body.firstName,
             lastName:req.body.lastName,

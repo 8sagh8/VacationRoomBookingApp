@@ -14,16 +14,18 @@
     <p>-----------or-------------</p>
 
     <form method="POST" action="/reg">
+        <input type="text" name="userName" id="userName" placeholder="User Name">
+        <br>
         <input type="email" name="email" id="email" placeholder="Email address">
         <br>
         <input type="text" name="firstName" id="firstName" placeholder="First name">
         <br>
         <input type="text" name="lastName" id="lastName" placeholder="Last name">
-        <br>
-        <input type="password" name="password" id="password" placeholder="Create a Password">
         <br><br>
-        <label><b>Birthday</b></label>
+        <input type="password" name="password" class="password" placeholder="Create a Password" >
         <br>
+        <input type="password" name="passwordd" class="password" placeholder="Create a Password">
+        <br><br>
         <label>To sign up, you need to be at least 18. Other people who use Airbnb won't see your birthday.</label>
         <br>
         <select name="selectMonth" id="selectMonth" class = "selectDate">
