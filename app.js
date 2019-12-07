@@ -8,11 +8,18 @@ link: https://webapp322.herokuapp.com/
 const express = require (`express`);
 const exphbs = require (`express-handlebars`);
 const bodyParser = require(`body-parser`);
+const nodemailer = require('nodemailer');
+const sgTransport = require('nodemailer-sendgrid-transport');
 const mongoose = require(`mongoose`);
+const methodOverride = require('method-override');
 
 const bcrypt = require(`bcryptjs`);
 const salt = bcrypt.genSaltSync(10);
 const hash = bcrypt.hashSync("B4c0/\/", salt);
+const session = require(`express-session`);
+
+//This loads all our environment variables from the keys.env
+require("dotenv").config({path:'./keys.env'});
 
 //IMPORT ROUTERS
 const generalRoutes = require("./routes/General");
@@ -22,6 +29,8 @@ const app = express();
 
 //to get values from forms and should be above routes
 app.use(bodyParser.urlencoded({extended: false}));
+
+app.use(methodOverride('_method'));
 
 // load all static files inside folder public
 app.use(express.static(`public`));
@@ -34,9 +43,9 @@ app.engine(`handlebars`, exphbs());
 app.set(`view engine`, `handlebars`);
 
 //This code is used to connect mongoose to our MONGODB in the Cloud
-const DBURL = 'mongodb+srv://userAdmin110:LostMongo110$@cluster0-swotc.mongodb.net/test?retryWrites=true&w=majority';
+const DBURL = `mongodb+srv://${process.env.db_username}:${process.env.db_password}@cluster0-swotc.mongodb.net/${process.env.db_collection}?retryWrites=true&w=majority`;
 
-mongoose.connect(DBURL, {useNewUrlParser: true})
+mongoose.connect(DBURL, {useNewUrlParser: true, useUnifiedTopology: true})
 //Then block will only be executed if the above-mentioned line is successful
 .then(()=>{
     console.log(`Database is connected`)
@@ -49,20 +58,42 @@ mongoose.connect(DBURL, {useNewUrlParser: true})
 let Schema = mongoose.Schema;
 
 let taskSchema = new Schema({
-    userName: String,
-    email: String,
-    firstName: String,
-    lastName: String,
-    password: String,
-    selectMonth: String,
-    selectDay: Number,
-    selectYear: Number
+    userName: {
+            type: String,
+            required: true
+    },
+    email: {
+        type: String,
+        required: true
+    },
+    firstName: {
+        type: String,
+        required: true
+    },
+    lastName: {
+        type: String,
+        required: true
+    },
+    password: {
+        type: String,
+        required: true
+    },
+    selectMonth: {
+        type: String,
+        required: true
+    },
+    selectDay: {
+        type: Number,
+        required : true
+    },
+    selectYear: {
+        type: Number,
+        required: true
+    }
 });
 
 //This creates a Model called Tasks. This model represents our Collection in our database
 let Tasks = mongoose.model('Tasks', taskSchema);
-
-
 
 //Assigning Ports to templates Files
 //Room listing Page
@@ -132,9 +163,6 @@ app.post(`/reg`, (req, res)=>{
 
 
         // Send Email Message
-        const nodemailer = require('nodemailer');
-        const sgTransport = require('nodemailer-sendgrid-transport');
-        
         const options = {
             auth: {
                 api_key: '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'
@@ -167,6 +195,13 @@ app.post(`/reg`, (req, res)=>{
 // Route for Dashboard
 app.get(`/dashboard`, (req, res)=>{
     res.render("userDashboard");
+    Tasks.find()
+    .then ((products)=>{
+        res.render("ProductListing",{
+            lists:products
+        });
+    })
+    .catch(err=> console.log(`Error: ${err}`));
 })
 
 //Login page
